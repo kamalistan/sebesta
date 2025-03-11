@@ -119,6 +119,16 @@ static void getNonBlank() {
 
 /*****************************************************/
 /* lex - a simple lexical analyzer for arithmetic expressions */
+static int isReservedWord(char *lexeme) {
+    char *reservedWords[] = {"for", "if", "else", "while", "do", "int", "float", "switch"};
+    int codes[] = {FOR_CODE, IF_CODE, ELSE_CODE, WHILE_CODE, DO_CODE, INT_CODE, FLOAT_CODE, SWITCH_CODE};
+    for (int i = 0; i < 8; i++) {
+        if (strcmp(lexeme, reservedWords[i]) == 0) {
+            return codes[i];
+        }
+    }
+    return IDENT;
+}
 int lex() {
     lexLen = 0;
     getNonBlank();
